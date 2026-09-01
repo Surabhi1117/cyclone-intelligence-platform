@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+/* Custom Scrollbar for high-density scientific views */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1527;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e2f52;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
+}
+
+/* Leaflet Custom Styling for Meteorological High-Contrast Theme */
+.leaflet-container {
+  background-color: #070b14 !important;
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #121d33 !important;
+  color: #f1f5f9 !important;
+  border: 1px solid #1e2f52 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7) !important;
+}
+
+.leaflet-popup-tip {
+  background: #121d33 !important;
+}
+
+/* Radar pulse animation for storm center */
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.radar-ring {
+  animation: radar-pulse 2s infinite ease-out;
+}
+

@@ -1,0 +1,39 @@
+# Node & Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+.npm/
+
+# Python & Backend
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/__pycache__/
+backend/core/__pycache__/
+backend/core/models/__pycache__/
+backend/worker/__pycache__/
+backend/api/__pycache__/
+backend/api/routes/__pycache__/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Data & Caches
+backend/data/*.db
+backend/data/satellite_cache/*
+backend/data/cyclone_storage.db
+*.sqlite3
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
