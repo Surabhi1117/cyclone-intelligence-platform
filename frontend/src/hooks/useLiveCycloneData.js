@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useWebSocket } from '../context/WebSocketContext';
 import { useDashboard } from '../context/DashboardContext';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 export const useLiveCycloneData = () => {
   const { addMessageListener } = useWebSocket();
   const { selectedStormId, setSelectedStormId, activeBasin, setActiveAlert } = useDashboard();
@@ -21,8 +23,8 @@ export const useLiveCycloneData = () => {
   const fetchActiveStorms = useCallback(async () => {
     try {
       const url = activeBasin && activeBasin !== 'All Basins'
-        ? `/api/storms/active?basin=${encodeURIComponent(activeBasin)}`
-        : '/api/storms/active';
+        ? `${API_BASE}/api/storms/active?basin=${encodeURIComponent(activeBasin)}`
+        : `${API_BASE}/api/storms/active`;
       const resp = await fetch(url);
       if (resp.ok) {
         const data = await resp.json();
@@ -41,7 +43,7 @@ export const useLiveCycloneData = () => {
     if (!stormId) return;
     try {
       setIsLoading(true);
-      const resp = await fetch(`/api/storms/${stormId}/latest`);
+      const resp = await fetch(`${API_BASE}/api/storms/${stormId}/latest`);
       if (resp.ok) {
         const data = await resp.json();
         setCurrentStormData(data);
@@ -57,7 +59,7 @@ export const useLiveCycloneData = () => {
   // 3. Fetch Ingestion Audit Logs
   const fetchAuditLogs = useCallback(async () => {
     try {
-      const resp = await fetch('/api/ingest/logs?limit=40');
+      const resp = await fetch(`${API_BASE}/api/ingest/logs?limit=40`);
       if (resp.ok) {
         const logs = await resp.json();
         setAuditLogs(logs);
@@ -164,7 +166,7 @@ export const useLiveCycloneData = () => {
   // Manual Trigger helper
   const triggerManualPass = async (params = {}) => {
     try {
-      const resp = await fetch('/api/ingest/manual-trigger', {
+      const resp = await fetch(`${API_BASE}/api/ingest/manual-trigger`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -182,7 +184,7 @@ export const useLiveCycloneData = () => {
   // Simulation Control helper
   const updateSimulation = async (controls = {}) => {
     try {
-      const resp = await fetch('/api/ingest/simulation-control', {
+      const resp = await fetch(`${API_BASE}/api/ingest/simulation-control`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(controls)

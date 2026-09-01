@@ -27,6 +27,8 @@ import {
 import { Card } from '../components/ui/Card';
 import { CategoryBadge } from '../components/ui/Badge';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 export const HistoricalReplay = () => {
   const [selectedStormId, setSelectedStormId] = useState('AMPHAN_2020');
   const [stormList, setStormList] = useState([]);
@@ -35,7 +37,7 @@ export const HistoricalReplay = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    fetch('/api/benchmark/storms')
+    fetch(`${API_BASE}/api/benchmark/storms`)
       .then((res) => res.json())
       .then((data) => {
         setStormList(data);
@@ -46,7 +48,7 @@ export const HistoricalReplay = () => {
 
   useEffect(() => {
     if (selectedStormId) {
-      fetch(`/api/benchmark/storm/${selectedStormId}`)
+      fetch(`${API_BASE}/api/benchmark/storm/${selectedStormId}`)
         .then((res) => res.json())
         .then((data) => {
           setStormData(data);

@@ -16,6 +16,8 @@ import { Card } from '../components/ui/Card';
 import { useDashboard } from '../context/DashboardContext';
 import { CategoryBadge } from '../components/ui/Badge';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 export const EarlyWarning = () => {
   const { selectedStormId } = useDashboard();
   const [bulletin, setBulletin] = useState(null);
@@ -25,7 +27,7 @@ export const EarlyWarning = () => {
   const fetchBulletin = async (stormId) => {
     try {
       setIsLoading(true);
-      const resp = await fetch('/api/bulletin/generate', {
+      const resp = await fetch(`${API_BASE}/api/bulletin/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

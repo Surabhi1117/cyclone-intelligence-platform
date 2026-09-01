@@ -12,8 +12,10 @@ export const WebSocketProvider = ({ children }) => {
   const pingIntervalRef = useRef(null);
 
   const getWsUrl = () => {
+    if (import.meta.env.VITE_WS_URL) {
+      return import.meta.env.VITE_WS_URL;
+    }
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    // If running with Vite proxy or separate ports
     const host = window.location.port === '5173' || window.location.port === '5174' ? '127.0.0.1:8001' : window.location.host;
     return `${protocol}//${host}/ws/live-feed`;
   };
